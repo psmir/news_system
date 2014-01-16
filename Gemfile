@@ -37,6 +37,7 @@ gem 'twitter-bootstrap-rails'
 gem 'bootstrap-sass', '~> 2.3'
 gem 'bootswatch-rails'
 gem 'devise'
+gem 'cancan', git: 'https://github.com/ollym/cancan.git'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
