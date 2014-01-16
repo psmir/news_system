@@ -40,12 +40,14 @@ gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'faker'
 end
 
 group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'
+  gem 'factory_girl_rails'
 end
 
 # Use ActiveModel has_secure_password
