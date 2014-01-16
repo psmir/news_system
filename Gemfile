@@ -36,6 +36,7 @@ gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap-sass', '~> 2.3'
 gem 'bootswatch-rails'
+gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'

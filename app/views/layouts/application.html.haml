@@ -29,9 +29,11 @@
           %a.brand(href="#") NewsSystem
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              - if user_signed_in?
+                %li= link_to "Выход", destroy_user_session_path, :method => :delete
+              - else
+                %li= link_to "Вход", new_user_session_path
+                %li= link_to "Регистрация", new_user_registration_path
 
     .container-fluid
 
@@ -46,6 +48,6 @@
         .span9
           = bootstrap_flash
           = yield
-    
+
       %footer
         %p &copy; Company 2014
