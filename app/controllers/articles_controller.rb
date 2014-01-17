@@ -1,14 +1,14 @@
 class ArticlesController < ApplicationController
 
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show, :like, :dislike]
   before_filter :new_article, only: [:create]
+  before_filter :find_articles, only: [:index, :like, :dislike]
 
   load_resource except: [:create, :index]
-  authorize_resource except: [:index]
+  authorize_resource except: [:index, :like, :dislike]
 
 
   def index
-    @articles = Article.proper_order.page(params[:page])
     @articles = @articles.by_user_id(params[:user_id]) if params[:user_id]
   end
 
@@ -45,6 +45,24 @@ class ArticlesController < ApplicationController
     redirect_to user_articles_path(current_user)
   end
 
+  def like
+    @article.increment(:votes)
+    respond_to do |format|
+      @article.save
+      format.html { redirect_to root_path }
+      format.js {}
+    end
+  end
+
+  def dislike
+    @article.decrement(:votes)
+    respond_to do |format|
+      @article.save
+      format.html { redirect_to root_path }
+      format.js {}
+    end
+  end
+
   private
 
   def safe_params
@@ -53,5 +71,9 @@ class ArticlesController < ApplicationController
 
   def new_article
     @article = current_user.articles.build(safe_params)
+  end
+
+  def find_articles
+    @articles = Article.proper_order.page(params[:page])
   end
 end

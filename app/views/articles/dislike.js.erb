@@ -1,0 +1,2 @@
+$("ul#articles").empty();
+$('<%= escape_javascript(render(:partial => "articles"))%>').appendTo('#articles');

@@ -26,7 +26,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand(href="#") NewsSystem
+          =link_to 'News System', root_path, class: 'brand'
           .container.nav-collapse
             %ul.nav
               - if user_signed_in?

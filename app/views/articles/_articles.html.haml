@@ -1,0 +1,8 @@
+- @articles.each do |article|
+  %li{ id: "article_#{article.id}"}
+    %p= link_to article.title, article_path(article)
+    %p= "Votes: #{article.votes}"
+    %p= "Created: #{time_ago_in_words(article.created_at) }"
+    %p
+      %span= link_to 'Like', like_article_path(article, page: params[:page] || 1), method: :post, remote: true
+      %span=link_to 'Disike', dislike_article_path(article, page: params[:page] || 1), method: :post, remote: true

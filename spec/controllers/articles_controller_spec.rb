@@ -106,4 +106,22 @@ describe ArticlesController do
 
   end
 
+
+  describe "#like" do
+    before { @article = create(:article, votes: 10) }
+
+    context 'format html' do
+      before { post :like, id: @article.id }
+
+      it { expect(@article.reload.votes).to eq 11 }
+      it { expect(response).to redirect_to root_path }
+    end
+
+    context 'format js' do
+      before { xhr :post, :like, id: @article.id }
+
+      it { expect(@article.reload.votes).to eq 11 }
+      it { expect(response).to render_template 'like' }
+    end
+  end
 end
