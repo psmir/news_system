@@ -3,11 +3,12 @@ class ArticlesController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :new_article, only: [:create]
 
-  load_resource except: [:create]
-  authorize_resource
+  load_resource except: [:create, :index]
+  authorize_resource except: [:index]
 
 
   def index
+    @articles = Article.proper_order.page(params[:page])
   end
 
   def new

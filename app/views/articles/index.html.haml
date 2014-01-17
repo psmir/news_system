@@ -1,1 +1,8 @@
-%h1 News System
+%ul#articles
+  - @articles.each do |article|
+    %li
+      %p= link_to article.title, article_path(article)
+      %p= "Votes: #{article.votes}"
+      %p= "Created: #{time_ago_in_words(article.created_at) }"
+
+= paginate @articles

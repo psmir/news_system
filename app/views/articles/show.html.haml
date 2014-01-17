@@ -1,0 +1,4 @@
+%h3= @article.title
+%p= @article.content
+%p= "User: #{@article.user.email}"
+%p= "Created at: #{ time_ago_in_words(@article.created_at) } ago"

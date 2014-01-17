@@ -54,4 +54,14 @@ describe ArticlesController do
     end
   end
 
+  describe "#index" do
+    before do
+      Article.stub_chain(:proper_order, :page).with('1').and_return @articles
+      get :index, page: 1
+    end
+
+    it { expect(assigns[:articles]).to eq @articles }
+  end
+
+
 end
