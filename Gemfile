@@ -38,6 +38,7 @@ gem 'bootstrap-sass', '~> 2.3'
 gem 'bootswatch-rails'
 gem 'devise'
 gem 'cancan', git: 'https://github.com/ollym/cancan.git'
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
