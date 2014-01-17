@@ -5,5 +5,6 @@ class Article < ActiveRecord::Base
   scope :by_popularity, -> { order('articles.votes DESC') }
   scope :by_newest, -> { order('articles.created_at DESC') }
   scope :proper_order, -> { by_popularity.by_newest }
+  scope :by_user_id, -> (id) { where("user_id = ?", id) }
 
 end

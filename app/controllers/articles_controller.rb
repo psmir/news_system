@@ -9,6 +9,7 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.proper_order.page(params[:page])
+    @articles = @articles.by_user_id(params[:user_id]) if params[:user_id]
   end
 
   def new
@@ -36,6 +37,12 @@ class ArticlesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @article.destroy
+    flash[:notice] = 'The article has been deleted'
+    redirect_to user_articles_path(current_user)
   end
 
   private

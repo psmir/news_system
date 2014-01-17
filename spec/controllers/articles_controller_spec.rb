@@ -55,12 +55,25 @@ describe ArticlesController do
   end
 
   describe "#index" do
-    before do
-      Article.stub_chain(:proper_order, :page).with('1').and_return @articles
-      get :index, page: 1
+
+    context 'no user_id' do
+      before do
+        Article.stub_chain(:proper_order, :page).with('1').and_return @articles = double
+        get :index, page: 1
+      end
+
+      it { expect(assigns[:articles]).to eq @articles }
     end
 
-    it { expect(assigns[:articles]).to eq @articles }
+    context 'with user_id' do
+      before do
+        Article.stub_chain(:proper_order, :page).with('1').and_return Article
+        expect(Article).to receive(:by_user_id).with('2').and_return @user_articles = double
+        get :index, page: 1, user_id: 2
+      end
+
+      it { expect(assigns[:articles]).to eq @user_articles }
+    end
   end
 
   describe "#update" do
