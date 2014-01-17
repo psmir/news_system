@@ -2,3 +2,4 @@
 %p= @article.content
 %p= "User: #{@article.user.email}"
 %p= "Created at: #{ time_ago_in_words(@article.created_at) } ago"
+%p= link_to 'Edit', edit_article_path(@article)

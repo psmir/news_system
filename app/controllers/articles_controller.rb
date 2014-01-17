@@ -26,6 +26,18 @@ class ArticlesController < ApplicationController
   def show
   end
 
+  def edit
+  end
+
+  def update
+    if @article.update_attributes(safe_params)
+      flash[:notice] = 'The article has been updated'
+      redirect_to article_path(@article)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def safe_params

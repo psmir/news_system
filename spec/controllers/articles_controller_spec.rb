@@ -63,5 +63,34 @@ describe ArticlesController do
     it { expect(assigns[:articles]).to eq @articles }
   end
 
+  describe "#update" do
+    include_context 'authenticated user'
+
+    before do
+      @ability.can :update, Article
+      Article.stub(:find).with('1').and_return @article = stub_model(Article)
+    end
+
+    context 'valid params' do
+      before do
+        expect(@article).to receive(:update_attributes).and_return true
+        put :update, id: 1, article: attributes_for(:article)
+      end
+
+      it { expect(flash[:notice]).to eq 'The article has been updated' }
+      it { expect(response).to redirect_to article_path(@article) }
+    end
+
+    context 'invalid params' do
+      before do
+        expect(@article).to receive(:update_attributes).and_return false
+        put :update, id: 1, article: attributes_for(:article)
+      end
+
+      it { expect(assigns[:article]).to eq @article }
+      it { expect(response).to render_template 'articles/edit' }
+    end
+
+  end
 
 end
