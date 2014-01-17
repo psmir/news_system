@@ -67,4 +67,7 @@ RSpec.configure do |config|
   end
 
   Capybara.javascript_driver = :webkit
+
+  # it allows to use FactoryGirs' methods without FactoryGirl::
+  config.include FactoryGirl::Syntax::Methods
 end

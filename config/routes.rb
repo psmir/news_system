@@ -1,6 +1,6 @@
 NewsSystem::Application.routes.draw do
   devise_for :users
-  resources :news
+  resources :articles
 
-  root to: 'news#index'
+  root to: 'articles#index'
 end
