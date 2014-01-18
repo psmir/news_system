@@ -3,13 +3,13 @@ class ArticlesController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show, :like, :dislike]
   before_filter :new_article, only: [:create]
   before_filter :find_articles, only: [:index, :like, :dislike]
-
   load_resource except: [:create, :index]
+  before_filter :remember_voting, only: [:like, :dislike]
   authorize_resource except: [:index, :like, :dislike]
 
+  helper_method :already_voted?
 
   def index
-    @articles = @articles.by_user_id(params[:user_id]) if params[:user_id]
   end
 
   def new
@@ -75,5 +75,14 @@ class ArticlesController < ApplicationController
 
   def find_articles
     @articles = Article.proper_order.page(params[:page])
+    @articles = @articles.by_user_id(params[:user_id]) if params[:user_id]
+  end
+
+  def remember_voting
+    session[@article.id] = true
+  end
+
+  def already_voted?(article)
+    session[article.id]
   end
 end
